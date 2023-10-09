@@ -48,8 +48,9 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="Admin_Dashboard/#" data-toggle="dropdown" id="profileDropdown">
-              
-              <img src="{{URL::asset('uploads/profiles/images (1).jpg')}}" alt="profile"/> 
+              @if (session()->has('picture'))
+              <img src="{{ asset('uploads/profiles/' . session('picture')) }}" alt="profile"/>
+             @endif
               
             </a>
             

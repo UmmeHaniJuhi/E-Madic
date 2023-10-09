@@ -82,7 +82,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="image">Product Image</label>
-                                        <input value="{{$product->image}}" type="file" name="image" id="image" class="form-control" placeholder="Product image"> </div>
+                                        <input value="{{$product->image}}" type="file" name="image" id="image" class="form-control" > </div>
                                 </div>
                             </div>
                             
