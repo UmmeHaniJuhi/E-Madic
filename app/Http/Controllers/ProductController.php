@@ -74,16 +74,17 @@ class ProductController extends Controller
             'subcategory' => 'required|exists:sub_categories,id',
             'brand' => 'required|exists:brands,id',
             'quantity' => 'required|numeric',
-             
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if($request->hasFile('image')){
-            $file=$request->file('image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move(public_path('product'),$filename);
-            $product->image=$filename;
-        }
+        $filename = $product->image;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('product'), $filename);
+        }    
         $update = $product->update([
             'name' => $request->name,
             'price' => $request->price,
@@ -92,7 +93,7 @@ class ProductController extends Controller
             'cat_id' => $request->category,
             'subcat_id' => $request->subcategory,
             'br_id' => $request->brand,
-            'image' => $filename, // Update the image field
+            'image' => $filename, 
             'description' => $request->description,
         ]);
 

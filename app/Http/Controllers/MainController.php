@@ -90,14 +90,17 @@ class MainController extends Controller
                 foreach($carts as $item)
                 {
                     $product=Product::find($item->pro_id);
-                    $orderItem = new OrderItem();
-                    $orderItem->pro_id=$item->pro_id;
-                    $orderItem->quantity=$item->quantity;
-                    $orderItem->price=$product->price;
-                    $orderItem->order_id =$order->id;
-                    $orderItem->save();
-                    $item->delete();
-
+                    if ($product && $item->quantity > 0) {
+                        $orderItem = new OrderItem();
+                        $orderItem->pro_id = $item->pro_id;
+                        $orderItem->quantity = $item->quantity;
+                        $orderItem->price = $product->price;
+                        $orderItem->order_id = $order->id;
+                        $orderItem->save();
+                        $product->quantity -= $item->quantity;
+                        $product->save();
+                        $item->delete();
+                    }
                 }   
             }    
             return redirect()->back()->with('success', 'Success! Your Order has been placed');
